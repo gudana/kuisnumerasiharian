@@ -657,6 +657,28 @@
         let currentSortColumn = 'timestamp'; // Default sort berdasarkan waktu
         let currentSortDirection = 'desc';  // Terbaru di atas
 
+        // Fungsi pembantu untuk mengambil gabungan data Cloud & Lokal
+        function getCombinedResults() {
+            const cloudData = window.allCloudResults || allCloudResults || [];
+            const combinedMap = new Map();
+
+            // Masukkan data cloud lebih dulu
+            cloudData.forEach(item => {
+                if (item.id || item.sessionId) {
+                    combinedMap.set(item.id || item.sessionId, item);
+                }
+            });
+
+            // Masukkan data lokal (jika ada data baru/update)
+            localExamResults.forEach(item => {
+                if (item.sessionId) {
+                    combinedMap.set(item.sessionId, { ...combinedMap.get(item.sessionId), ...item });
+                }
+            });
+
+            return Array.from(combinedMap.values());
+        }
+        
         function initPackageDropdowns() {
             const studentSelect = document.getElementById('inputPackage');
             const teacherFilter = document.getElementById('filterTeacherPackage');
@@ -1128,7 +1150,7 @@
                 const modal = document.getElementById('teacherModal');
                 if (modal.classList.contains('hidden')) {
                     modal.classList.remove('hidden');
-                    renderTeacherTable(window.allCloudResults || allCloudResults);
+                    renderTeacherTable(getCombinedResults());
                 } else {
                     modal.classList.add('hidden');
                 }
@@ -1147,7 +1169,7 @@
         }
 
         function applyTeacherFilter() {
-            renderTeacherTable(window.allCloudResults || allCloudResults);
+            renderTeacherTable(getCombinedResults());
         }
 
         // Fungsi Handler Sort Kolom
@@ -1163,7 +1185,7 @@
                 }
             }
             updateSortIconsUI();
-            renderTeacherTable(window.allCloudResults || allCloudResults);
+            renderTeacherTable(getCombinedResults());
         }
 
         function updateSortIconsUI() {
@@ -1294,7 +1316,7 @@
             const selectedClass = document.getElementById('filterTeacherClass') ? document.getElementById('filterTeacherClass').value : 'ALL';
             const searchKeyword = document.getElementById('searchTeacherName') ? document.getElementById('searchTeacherName').value.trim().toLowerCase() : '';
             
-            let dataToExport = window.allCloudResults || allCloudResults;
+            let dataToExport = dRegetCombinesults();
 
             if (selectedPackage !== 'ALL') {
                 dataToExport = dataToExport.filter(r => r.package === selectedPackage);
@@ -1311,25 +1333,46 @@
                 return;
             }
 
-            let csvContent = "data:text/csv;charset=utf-8,Waktu,Paket Numerasi,Nama Lengkap,Kelas,Status,Posisi Soal,Jumlah Benar,Jumlah Salah,Pelanggaran,Nilai Akhir\n";
+            // Gunakan header CSV sederhana yang dipisahkan koma
+            let csvRows = [];
+            csvRows.push(["Waktu", "Paket Numerasi", "Nama Lengkap", "Kelas", "Status", "Posisi Soal", "Jumlah Benar", "Jumlah Salah", "Pelanggaran", "Nilai Akhir"].join(","));
 
             dataToExport.forEach((r) => {
-                const dateStr = (r.lastUpdated || r.timestamp) ? new Date(r.lastUpdated || r.timestamp).toLocaleString('id-ID') : '-';
+                const dateStr = (r.completedAt || r.lastUpdated || r.timestamp) ? new Date(r.completedAt || r.lastUpdated || r.timestamp).toLocaleString('id-ID') : '-';
                 const isFinished = r.status === 'Selesai';
                 const correct = isFinished && r.correctCount !== undefined ? r.correctCount : '-';
                 const wrong = isFinished && r.wrongCount !== undefined ? (5 - r.correctCount) : '-';
                 const pos = `Soal #${r.currentQuestion || 1}`;
+                const cleanName = (r.name || '').replace(/"/g, '""');
 
-                csvContent += `"${dateStr}","${r.package || 'Numerasi 1'}","${r.name}","${r.class}","${r.status || 'Aktif'}","${pos}","${correct}","${wrong}",${r.violationsCount || 0},${r.finalScore ?? '-'}\n`;
+                const row = [
+                    `"${dateStr}"`,
+                    `"${r.package || 'Numerasi 1'}"`,
+                    `"${cleanName}"`,
+                    `"${r.class || '-'}"`,
+                    `"${r.status || 'Aktif'}"`,
+                    `"${pos}"`,
+                    `"${correct}"`,
+                    `"${wrong}"`,
+                    r.violationsCount || 0,
+                    r.finalScore !== undefined && r.finalScore !== null ? r.finalScore : '"-"'
+                ];
+                csvRows.push(row.join(","));
             });
 
-            const encodedUri = encodeURI(csvContent);
+            const csvString = csvRows.join("\n");
+            
+            // Tambahkan BOM (\uFEFF) agar Microsoft Excel secara otomatis membaca encoding UTF-8 dengan benar
+            const blob = new Blob(["\uFEFF" + csvString], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            
             const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
+            link.setAttribute("href", url);
             link.setAttribute("download", `Rekap_Ujian_Numerasi_SMKN2_${selectedPackage}_${selectedClass}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            URL.revokeObjectURL(url);
         }
 
         function restartExam() {
