@@ -123,7 +123,7 @@
                     <i class="fa-solid fa-calculator text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg leading-tight" id="headerTitle">Portal Latihan Numerasi</h1>
+                    <h1 class="font-bold text-lg leading-tight" id="headerTitle">Portal Numerasi</h1>
                     <p class="text-xs text-indigo-200">SMK Negeri 2 Sendawar</p>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                 <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
                     <i class="fa-solid fa-file-pen"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-slate-800">Lembar Pendaftaran Ujian</h2>
+                <h2 class="text-2xl font-bold text-slate-800">Latihan Numerasi Harian</h2>
                 <p class="text-xs sm:text-sm text-slate-500 mt-1">Pilih Paket Numerasi & Masukkan Data Siswa</p>
             </div>
 
@@ -169,8 +169,8 @@
                     <span>ATURAN PENGERJAAN & SISTEM PENILAIAN:</span>
                 </div>
                 <ul class="list-disc list-inside space-y-1 pl-1 text-amber-800">
-                    <li>Total pengerjaan: <strong>5 butir soal acak dari 10 bank soal tiap paket</strong>.</li>
-                    <li>Sistem pengerjaan: <strong>SATU PER SATU (Sequential)</strong>. Tidak dapat kembali ke soal sebelumnya!</li>
+                    <li>Total pengerjaan: <strong>5 butir soal acak tiap paket</strong>.</li>
+                    <li>Sistem pengerjaan: <strong>SATU PER SATU</strong>. Tidak dapat kembali ke soal sebelumnya!</li>
                     <li>Waktu pengerjaan: <strong>2 MENIT PER SOAL</strong> (otomatis lanjut jika waktu habis).</li>
                     <li>Layar otomatis masuk ke mode <strong>Full Screen</strong>.</li>
                     <li><strong>DILARANG KELUAR / PINDAH TAB / MINIMIZE BROWSER!</strong></li>
@@ -397,7 +397,7 @@
 
             <form onsubmit="event.preventDefault(); verifyTeacherPin();" class="space-y-4">
                 <div>
-                    <input type="password" id="teacherPinInput" placeholder="Masukkan PIN" maxlength="10" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-center font-mono text-lg font-bold tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="password" id="teacherPinInput" placeholder="Masukkan PIN" maxlength="15" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-center font-mono text-lg font-bold tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     <p id="pinErrorMessage" class="text-xs text-rose-600 font-semibold mt-1.5 hidden"></p>
                 </div>
 
@@ -411,7 +411,7 @@
                     </button>
                 </div>
             </form>
-            <p class="text-[10px] text-slate-400 mt-4">Catatan: PIN Default adalah <strong class="text-slate-600">1234</strong></p>
+            <p class="text-[10px] text-slate-400 mt-4">Catatan: PIN menggunakan huruf kecil semua</p>
         </div>
     </div>
 
@@ -651,7 +651,7 @@
 
         let allCloudResults = [];
         let isTeacherAuthenticated = false;
-        const TEACHER_PIN = "1234";
+        const TEACHER_PIN = "ceknumerasi";
 
         // Sort State untuk Tabel Guru
         let currentSortColumn = 'timestamp'; // Default sort berdasarkan waktu
