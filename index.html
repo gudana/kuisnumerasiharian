@@ -29,14 +29,14 @@
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, collection, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'smkn2-sendawar-numerasi';
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'smkn2-sendawar-';
         
-        // KONFIGURASI FIREBASE (Proyek: numerasi-1)
+        // KONFIGURASI FIREBASE (Proyek: -1)
         const customFirebaseConfig = {
             apiKey: "AIzaSyB_6Rw8kd5InRvrhQTOEM7nsiZgCbwoUU4",
-            authDomain: "numerasi-1.firebaseapp.com",
-            projectId: "numerasi-1",
-            storageBucket: "numerasi-1.firebasestorage.app",
+            authDomain: "-1.firebaseapp.com",
+            projectId: "-1",
+            storageBucket: "-1.firebasestorage.app",
             messagingSenderId: "338201029694",
             appId: "1:338201029694:web:c27ee37118a8fc094a756f",
             measurementId: "G-GT3367RF62"
@@ -84,7 +84,7 @@
         window.syncStudentProgressToCloud = async function(sessionId, data) {
             if (!db || !sessionId) return;
             try {
-                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'numerasi_results', sessionId);
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', '_results', sessionId);
                 await setDoc(docRef, {
                     ...data,
                     lastUpdated: new Date().toISOString()
@@ -99,7 +99,7 @@
                 callback([], false);
                 return;
             }
-            const resultsCol = collection(db, 'artifacts', appId, 'public', 'data', 'numerasi_results');
+            const resultsCol = collection(db, 'artifacts', appId, 'public', 'data', '_results');
             onSnapshot(resultsCol, (snapshot) => {
                 const results = [];
                 snapshot.forEach((doc) => {
@@ -123,7 +123,7 @@
                     <i class="fa-solid fa-calculator text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg leading-tight" id="headerTitle">Portal Numerasi</h1>
+                    <h1 class="font-bold text-lg leading-tight" id="headerTitle">Portal </h1>
                     <p class="text-xs text-indigo-200">SMK Negeri 2 Sendawar</p>
                 </div>
             </div>
@@ -158,8 +158,8 @@
                 <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
                     <i class="fa-solid fa-file-pen"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-slate-800">Latihan Numerasi Harian</h2>
-                <p class="text-xs sm:text-sm text-slate-500 mt-1">Pilih Paket Numerasi & Masukkan Data Siswa</p>
+                <h2 class="text-2xl font-bold text-slate-800">Latihan  Harian</h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1">Pilih Paket  & Masukkan Data Siswa</p>
             </div>
 
             <!-- Rules Box -->
@@ -180,9 +180,9 @@
 
             <form id="startForm" onsubmit="event.preventDefault(); startExam();" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Pilih Paket Latihan Numerasi</label>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Pilih Paket Latihan </label>
                     <select id="inputPackage" required class="w-full px-4 py-2.5 rounded-xl border border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-indigo-50/50 font-bold text-indigo-900">
-                        <option value="">-- Pilih Paket Numerasi Hari Ini --</option>
+                        <option value="">-- Pilih Paket  Hari Ini --</option>
                     </select>
                 </div>
                 <div>
@@ -233,7 +233,7 @@
                     <h3 id="displayStudentName" class="font-bold text-slate-800 text-base truncate">-</h3>
                     <p id="displayStudentClass" class="text-xs text-indigo-600 font-semibold mt-0.5">-</p>
                     <div class="mt-2 inline-block bg-indigo-100 text-indigo-800 text-[11px] font-bold px-2.5 py-1 rounded-md" id="displayExamPackage">
-                        Numerasi 1
+                         1
                     </div>
                 </div>
 
@@ -289,7 +289,7 @@
                     <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 text-3xl">
                         <i class="fa-solid fa-square-poll-vertical"></i>
                     </div>
-                    <h2 class="text-2xl font-bold">Hasil Latihan Numerasi</h2>
+                    <h2 class="text-2xl font-bold">Hasil Latihan </h2>
                     <p class="text-indigo-100 text-sm mt-1" id="resultStudentDetails">-</p>
                 </div>
 
@@ -565,7 +565,7 @@
     </div>
 
     <script>
-        // --- BANK SOAL NUMERASI 1 s.d 5 ---
+        // --- BANK SOAL  1 s.d 5 ---
         const questionBankMap = {
             "Numerasi 1": [
                 { id: 101, question: "Rina memiliki 3 kotak pensil. Setiap kotak berisi 4 pensil. Berapa jumlah pensil Rina seluruhnya?", options: ["10 pensil", "12 pensil", "14 pensil", "16 pensil"], answer: 1, explanation: "Perkalian: 3 kotak × 4 pensil = 12 pensil." },
@@ -626,6 +626,18 @@
                 { id: 508, question: "Nilai ulangan dari 6 orang siswa yang sudah diurutkan adalah: 60, 70, 80, 80, 90, 100. Berapa nilai tengah (median) dari data tersebut?", options: ["75", "80", "85", "90"], answer: 1, explanation: "Jumlah data genap (6). Median = rata-rata data ke-3 dan ke-4: (80 + 80) ÷ 2 = 80." },
                 { id: 509, question: "Sebuah segitiga memiliki panjang alas 10 cm dan tinggi 8 cm. Berapa luas segitiga tersebut?", options: ["18 cm²", "32 cm²", "40 cm²", "80 cm²"], answer: 2, explanation: "Luas Segitiga = 1/2 × Alas × Tinggi = 1/2 × 10 cm × 8 cm = 40 cm²." },
                 { id: 510, question: "Sebuah lapangan berbentuk persegi panjang berukuran panjang 20 m dan lebar 15 m. Jika siswa berlari mengelilingi lapangan sebanyak 2 putaran, berapa jarak total yang ditempuh?", options: ["70 meter", "140 meter", "300 meter", "600 meter"], answer: 1, explanation: "Keliling 1 Putaran = 2 × (20 + 15) = 70 m. Jarak 2 Putaran = 2 × 70 m = 140 m." }
+            ],
+            "Numerasi 6": [
+                { id: 401, question: "Sebuah mobil berangkat pukul 07.00 dan tiba di tujuan pukul 09.30. Berapa lama perjalanan mobil tersebut?", options: ["2 jam", "2 jam 30 menit", "3 jam", "3 jam 30 menit"], answer: 1, explanation: "Waktu: 09.30 - 07.00 = 2 jam 30 menit." },
+                { id: 402, question: "1 kg setara dengan berapa gram?", options: ["10 gram", "100 gram", "1.000 gram", "10.000 gram"], answer: 2, explanation: "Satuan Berat: 1 kg = 1.000 gram." },
+                { id: 403, question: "Andi membeli 3 pulpen seharga Rp 3.000 per pulpen. Jika Andi membayar dengan uang Rp 10.000, berapa kembaliannya?", options: ["Rp 1.000", "Rp 2.000", "Rp 3.000", "Rp 4.000"], answer: 0, explanation: "Aritmatika Uang: Total = 3 × 3.000 = 9.000. Kembalian = 10.000 - 9.000 = Rp 1.000." },
+                { id: 404, question: "Panjang pita Merah 150 cm dan pita Biru 2 meter. Berapa total panjang kedua pita dalam cm?", options: ["250 cm", "300 cm", "350 cm", "400 cm"], answer: 2, explanation: "Satuan Panjang: 2 meter = 200 cm. Total = 150 + 200 = 350 cm." },
+                { id: 405, question: "Siswa mulai ujian pukul 08.00 dengan durasi 90 menit. Pukul berapa ujian selesai?", options: ["09.00", "09.15", "09.30", "10.00"], answer: 2, explanation: "Waktu: 90 menit = 1 jam 30 menit. 08.00 + 1 jam 30 menit = 09.30." },
+                { id: 406, question: "Ibu membeli 2,5 kg gula dan 1,5 kg tepung. Berapa kg total belanjaan Ibu?", options: ["3 kg", "3,5 kg", "4 kg", "4,5 kg"], answer: 2, explanation: "Penjumlahan Berat: 2,5 + 1,5 = 4 kg." },
+                { id: 407, question: "Jarak rumah Doni ke sekolah adalah 2 km. Berapa meter jarak tersebut?", options: ["200 m", "2.000 m", "20.000 m", "200.000 m"], answer: 1, explanation: "Satuan Panjang: 1 km = 1.000 m. 2 km = 2.000 m." },
+                { id: 408, question: "Harga 1 kg telur adalah Rp 28.000. Berapa harga 2 kg telur?", options: ["Rp 50.000", "Rp 54.000", "Rp 56.000", "Rp 60.000"], answer: 2, explanation: "Perkalian Uang: 2 × 28.000 = Rp 56.000." },
+                { id: 409, question: "Sebuah wadah berisi 2 liter air. Berapa mililiter (ml) isi wadah tersebut?", options: ["200 ml", "500 ml", "2.000 ml", "20.000 ml"], answer: 2, explanation: "Satuan Volume: 1 liter = 1.000 ml. 2 liter = 2.000 ml." },
+                { id: 410, question: "Roni memiliki 4 lembar uang Rp 10.000. Berapa total uang Roni?", options: ["Rp 30.000", "Rp 40.000", "Rp 50.000", "Rp 60.000"], answer: 1, explanation: "Aritmatika Uang: 4 × 10.000 = Rp 40.000." }
             ]
         };
 
