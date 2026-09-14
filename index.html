@@ -416,7 +416,7 @@
                 <p>• Total Pelanggaran Saat Ini: <strong id="modalViolationCount" class="text-rose-700 text-xs sm:text-sm">1</strong> kali</p>
                 <p>• Pengurangan Nilai: <strong class="text-rose-700 text-xs sm:text-sm">-<span id="modalPenaltyAmount">5</span> Poin</strong></p>
             </div>
-            <button onclick="ViolationModal()" class="w-full bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold py-3 rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-xs sm:text-sm">
+            <button onclick="closeViolationModal()" class="w-full bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold py-3 rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-xs sm:text-sm">
                 <i class="fa-solid fa-expand"></i>
                 <span>Kembali ke Layar Penuh & Lanjutkan</span>
             </button>
@@ -434,7 +434,7 @@
                 Apakah Anda yakin ingin menyelesaikan latihan ini?
             </p>
             <div class="flex space-x-2.5 sm:space-x-3">
-                <button onclick="ConfirmModal()" class="w-1/2 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm rounded-xl transition">
+                <button onclick="closeConfirmModal()" class="w-1/2 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm rounded-xl transition">
                     Batal
                 </button>
                 <button onclick="submitExam('Manual')" class="w-1/2 py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-md transition">
@@ -463,7 +463,7 @@
                 <p id="pinErrorMessage" class="text-xs text-rose-600 font-semibold mt-1.5 hidden"></p>
 
                 <div class="flex space-x-2">
-                    <button type="button" onclick="TeacherPinModal()" class="w-1/3 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+                    <button type="button" onclick="closeTeacherPinModal()" class="w-1/3 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
                         Batal
                     </button>
                     <button type="submit" class="w-2/3 py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-1.5">
@@ -632,7 +632,7 @@
             <p id="emptyPackageText" class="text-slate-600 text-xs sm:text-sm mb-5 leading-relaxed break-word-custom">
                 Belum ada soal untuk paket ini, mohon tunggu ya!
             </p>
-            <button onclick="EmptyPackageModal()" class="w-full py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-semibold text-xs rounded-xl shadow-md transition">
+            <button onclick="closeEmptyPackageModal()" class="w-full py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-semibold text-xs rounded-xl shadow-md transition">
                 Mengerti & Kembali
             </button>
         </div>
