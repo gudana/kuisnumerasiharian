@@ -416,7 +416,7 @@
                 <p>• Total Pelanggaran Saat Ini: <strong id="modalViolationCount" class="text-rose-700 text-xs sm:text-sm">1</strong> kali</p>
                 <p>• Pengurangan Nilai: <strong class="text-rose-700 text-xs sm:text-sm">-<span id="modalPenaltyAmount">5</span> Poin</strong></p>
             </div>
-            <button onclick="closeViolationModal()" class="w-full bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold py-3 rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-xs sm:text-sm">
+            <button onclick="ViolationModal()" class="w-full bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold py-3 rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-xs sm:text-sm">
                 <i class="fa-solid fa-expand"></i>
                 <span>Kembali ke Layar Penuh & Lanjutkan</span>
             </button>
@@ -434,7 +434,7 @@
                 Apakah Anda yakin ingin menyelesaikan latihan ini?
             </p>
             <div class="flex space-x-2.5 sm:space-x-3">
-                <button onclick="closeConfirmModal()" class="w-1/2 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm rounded-xl transition">
+                <button onclick="ConfirmModal()" class="w-1/2 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm rounded-xl transition">
                     Batal
                 </button>
                 <button onclick="submitExam('Manual')" class="w-1/2 py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-md transition">
@@ -463,7 +463,7 @@
                 <p id="pinErrorMessage" class="text-xs text-rose-600 font-semibold mt-1.5 hidden"></p>
 
                 <div class="flex space-x-2">
-                    <button type="button" onclick="closeTeacherPinModal()" class="w-1/3 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+                    <button type="button" onclick="TeacherPinModal()" class="w-1/3 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
                         Batal
                     </button>
                     <button type="submit" class="w-2/3 py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl shadow-md transition flex items-center justify-center space-x-1.5">
@@ -622,7 +622,7 @@
         </div>
     </div>
 
-    <!-- 5. EMPTY / LOCKED / CLOSED PACKAGE NOTICE MODAL -->
+    <!-- 5. EMPTY / LOCKED / D PACKAGE NOTICE MODAL -->
     <div id="emptyPackageModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-5 sm:p-6 text-center shadow-2xl border border-amber-200 max-h-[90dvh] overflow-y-auto">
             <div class="w-12 h-12 sm:w-14 sm:h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl sm:text-2xl shadow-inner shrink-0">
@@ -632,7 +632,7 @@
             <p id="emptyPackageText" class="text-slate-600 text-xs sm:text-sm mb-5 leading-relaxed break-word-custom">
                 Belum ada soal untuk paket ini, mohon tunggu ya!
             </p>
-            <button onclick="closeEmptyPackageModal()" class="w-full py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-semibold text-xs rounded-xl shadow-md transition">
+            <button onclick="EmptyPackageModal()" class="w-full py-2.5 sm:py-3 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-semibold text-xs rounded-xl shadow-md transition">
                 Mengerti & Kembali
             </button>
         </div>
@@ -648,12 +648,12 @@
         // --- KONFIGURASI PAKET, JADWAL BUKA, JADWAL TUTUP, DAN BANK SOAL ---
         // CATATAN UNTUK PENGATURAN DI GITHUB:
         // openDate  : Tanggal & Jam Paket BISA MULAI dikerjakan (Format ISO: YYYY-MM-DDTHH:mm:ss+08:00)
-        // closeDate : Tanggal & Jam Paket RESMI DITUTUP (Format ISO: YYYY-MM-DDTHH:mm:ss+08:00)
+        // Date : Tanggal & Jam Paket RESMI DITUTUP (Format ISO: YYYY-MM-DDTHH:mm:ss+08:00)
         // Format Waktu Menggunakan Zona WITA (+08:00)
         const numerasiPackages = {
             "Numerasi 1": {
                 openDate: "2026-09-12T07:30:00+08:00",
-                closeDate: "2026-09-14T09:00:00+08:00", // Ditutup 14 Sep 2026, 09.00 WITA
+                closeDate: "2026-09-14T15:30:00+08:00", // Ditutup 14 Sep 2026, 15.30 WITA
                 questions: [
                     { id: 101, question: "Rina memiliki 3 kotak pensil. Setiap kotak berisi 4 pensil. Berapa jumlah pensil Rina seluruhnya?", options: ["10 pensil", "12 pensil", "14 pensil", "16 pensil"], answer: 1, explanation: "Perkalian: $3 \\text{ kotak} \\times 4 \\text{ pensil} = 12 \\text{ pensil}$." },
                     { id: 102, question: "Budi mempunyai 12 kelereng. Ia membagikan kelereng tersebut sama rata kepada 3 temannya. Berapa kelereng yang diterima setiap teman?", options: ["3 kelereng", "4 kelereng", "5 kelereng", "6 kelereng"], answer: 1, explanation: "Pembagian: $12 \\text{ kelereng} \\div 3 \\text{ teman} = 4 \\text{ kelereng}$." },
@@ -668,8 +668,8 @@
                 ]
             },
             "Numerasi 2": {
-                openDate: "2026-09-15T07:30:00+08:00",
-                closeDate: "2026-09-15T09:00:00+08:00", // Ditutup 15 Sep 2026, 09.00 WITA
+                openDate: "2026-09-14T07:30:00+08:00",
+                closeDate: "2026-09-15T15:30:00+08:00", // Ditutup 15 Sep 2026, 15.30 WITA
                 questions: [
                     { id: 201, question: "Dika memiliki 4 kotak krayon. Setiap kotak berisi 3 krayon. Berapa jumlah krayon Dika seluruhnya?", options: ["10 krayon", "12 krayon", "14 krayon", "16 krayon"], answer: 1, explanation: "Perkalian: $4 \\text{ kotak} \\times 3 \\text{ krayon} = 12 \\text{ krayon}$." },
                     { id: 202, question: "Lina mempunyai 18 permen. Permen tersebut dibagikan sama rata kepada 3 anak. Berapa permen yang diterima setiap anak?", options: ["4 permen", "5 permen", "6 permen", "7 permen"], answer: 2, explanation: "Pembagian: $18 \\text{ permen} \\div 3 \\text{ anak} = 6 \\text{ permen}$." },
@@ -685,7 +685,7 @@
             },
             "Numerasi 3": {
                 openDate: "2026-09-16T07:30:00+08:00",
-                closeDate: "2026-09-16T09:00:00+08:00", // Ditutup 16 Sep 2026, 09.00 WITA
+                closeDate: "2026-09-16T15:30:00+08:00", // Ditutup 16 Sep 2026, 15.30 WITA
                 questions: [
                     { id: 301, question: "Beni memiliki 3 kotak pensil. Setiap kotak berisi 6 pensil. Berapa jumlah pensil Beni seluruhnya?", options: ["15 pensil", "16 pensil", "18 pensil", "20 pensil"], answer: 2, explanation: "Perkalian: $3 \\text{ kotak} \\times 6 \\text{ pensil} = 18 \\text{ pensil}$." },
                     { id: 302, question: "Ibu mempunyai 20 telur. Telur tersebut dimasukkan sama rata ke dalam 5 wadah. Berapa telur dalam setiap wadah?", options: ["3 telur", "4 telur", "5 telur", "6 telur"], answer: 1, explanation: "Pembagian: $20 \\text{ telur} \\div 5 \\text{ wadah} = 4 \\text{ telur}$." },
@@ -701,7 +701,7 @@
             },
             "Numerasi 4": {
                 openDate: "2026-09-17T07:30:00+08:00",
-                closeDate: "2026-09-17T09:00:00+08:00", // Ditutup 17 Sep 2026, 09.00 WITA
+                closeDate: "2026-09-17T15:30:00+08:00", // Ditutup 17 Sep 2026, 15.30 WITA
                 questions: [
                     { id: 401, question: "Rina memiliki 5 kotak pensil. Setiap kotak berisi 5 pensil. Berapa jumlah pensil Rina seluruhnya?", options: ["20 pensil", "22 pensil", "25 pensil", "30 pensil"], answer: 2, explanation: "Perkalian: $5 \\text{ kotak} \\times 5 \\text{ pensil} = 25 \\text{ pensil}$." },
                     { id: 402, question: "Budi mempunyai 24 kelereng. Ia membagikan kelereng tersebut sama rata kepada 4 temannya. Berapa kelereng yang diterima setiap teman?", options: ["4 kelereng", "5 kelereng", "6 kelereng", "7 kelereng"], answer: 2, explanation: "Pembagian: $24 \\text{ kelereng} \\div 4 \\text{ teman} = 6 \\text{ kelereng}$." },
@@ -717,7 +717,7 @@
             },
             "Numerasi 5": {
                 openDate: "2026-09-18T07:30:00+08:00",
-                closeDate: "2026-09-18T09:00:00+08:00", // Ditutup 18 Sep 2026, 09.00 WITA
+                closeDate: "2026-09-18T15:30:00+08:00", // Ditutup 18 Sep 2026, 15.30 WITA
                 questions: [
                     { id: 501, question: "Dika memiliki 4 kotak krayon. Setiap kotak berisi 7 krayon. Berapa jumlah krayon Dika seluruhnya?", options: ["24 krayon", "26 krayon", "28 krayon", "30 krayon"], answer: 2, explanation: "Perkalian: $4 \\text{ kotak} \\times 7 \\text{ krayon} = 28 \\text{ krayon}$." },
                     { id: 502, question: "Lina mempunyai 30 permen. Permen tersebut dibagikan sama rata kepada 5 anak. Berapa permen yang diterima setiap anak?", options: ["5 permen", "6 permen", "7 permen", "8 permen"], answer: 1, explanation: "Pembagian: $30 \\text{ permen} \\div 5 \\text{ anak} = 6 \\text{ permen}$." },
